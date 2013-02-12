@@ -10,13 +10,17 @@ class String
      */
     protected $string;
     
-    public function __construct($string = null)
+    public function __construct($string)
     {
-        $this->string = $string;
+        $this->set($string);
     }
     
     public function set($string = null)
     {
+        if (!is_string($string)) {
+            throw new \InvalidArgumentException('Expecting string, gotten ' . gettype($string));
+        }
+        
         $this->string = $string;
         
         return $this;
@@ -34,6 +38,11 @@ class String
         return $this->get();
     }
     
+    public function getLength()
+    {
+        return strlen($this->get());
+    }
+    
     /* Manipulation functions*/
     /*******************************************/
     public function upper()
@@ -49,7 +58,7 @@ class String
     public function cut($length)
     {
         if (!is_int($length)) {
-            throw new \InvalidArgumentException('Length to cut must be integer');
+            throw new \InvalidArgumentException('Length to cut must be an integer');
         }
         
         if ($length <= 0) {
