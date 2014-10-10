@@ -62,7 +62,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($length, $t->length());
     }
 
-    private function getLengthData()
+    public function getLengthData()
     {
         return array(
             array(4, 'test'),

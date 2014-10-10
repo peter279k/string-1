@@ -5,6 +5,8 @@ String handling and manipulation class.
 
 [![Build Status](https://travis-ci.org/ChristianRiesen/string.svg?branch=master)](https://travis-ci.org/ChristianRiesen/string)
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/2b18f7a4-9050-4019-9acb-c52c73d32349/mini.png)](https://insight.sensiolabs.com/projects/2b18f7a4-9050-4019-9acb-c52c73d32349)
+
 Yet another string class
 ------------------------
 
