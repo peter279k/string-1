@@ -1,4 +1,5 @@
 <?php
+
 namespace ChristianRiesen\String;
 
 class String
