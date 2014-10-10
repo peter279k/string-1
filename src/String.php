@@ -122,7 +122,7 @@ class String
 
         if ($this->length() >= $length) {
             // It's already matching
-            return self;
+            return $this;
         }
 
         return new self(substr($this->get(), 0, $length));
