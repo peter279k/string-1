@@ -76,7 +76,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
         $t = new String('Mary and Alice');
         $upper = $t->upper();
 
-        $this->assertEquals('MARY AND ALICE', $upper);
+        $this->assertEquals('MARY AND ALICE', (string) $upper);
     }
 
     public function testLower()
@@ -84,7 +84,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
         $t = new String('Mary and Alice');
         $lower = $t->lower();
 
-        $this->assertEquals('mary and alice', $lower);
+        $this->assertEquals('mary and alice', (string) $lower);
     }
 
     public function testCut()
@@ -92,16 +92,16 @@ class StringTest extends \PHPUnit_Framework_TestCase
         $t = new String('Test Test Test Test');
         $cut = $t->cut(6);
 
-        $this->assertEquals('Test T', $cut);
+        $this->assertEquals('Test T', (string) $cut);
 
         // Larger than this can be done too, though it SHOULD have no effect
         $cut = $cut->cut(8);
 
-        $this->assertEquals('Test T', $cut);
+        $this->assertEquals('Test T', (string) $cut);
 
         $cut = $cut->cut(1);
 
-        $this->assertEquals('T', $cut);
+        $this->assertEquals('T', (string) $cut);
     }
 
     /**
