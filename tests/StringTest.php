@@ -1,4 +1,5 @@
 <?php
+
 use ChristianRiesen\String\String;
 
 class StringTest extends \PHPUnit_Framework_TestCase
@@ -10,7 +11,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     {
         $t = new String(true);
     }
-    
+
     /**
      * @expectedException InvalidArgumentException
      */
@@ -18,7 +19,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     {
         $t = new String((int) 123);
     }
-    
+
     /**
      * @expectedException InvalidArgumentException
      */
@@ -26,7 +27,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     {
         $t = new String((float) 1.23);
     }
-    
+
     /**
      * @expectedException InvalidArgumentException
      */
@@ -34,7 +35,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     {
         $t = new String(array(1, 2, 3));
     }
-    
+
     /**
      * @expectedException InvalidArgumentException
      */
@@ -42,86 +43,73 @@ class StringTest extends \PHPUnit_Framework_TestCase
     {
         $t = new String(new stdClass());
     }
-    
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testWrongTypeInSetObject()
-    {
-        $t = new String('test');
-        $t->set(new stdClass());
-    }
-    
+
     public function testSimpleUse()
     {
         $t = new String('The quick brown fox jumps over the lazy gnome.');
-        
+
         $this->assertEquals('The quick brown fox jumps over the lazy gnome.', $t);
         $this->assertEquals('The quick brown fox jumps over the lazy gnome.', $t->get());
-        
-        $t->set('Lucy with diamonds, you know the rest.');
-        
-        $this->assertEquals('Lucy with diamonds, you know the rest.', $t);
-        $this->assertEquals('Lucy with diamonds, you know the rest.', $t->get());
     }
-    
-    public function testLengths()
+
+    /**
+     * @dataProvider getLengthData
+     */
+    public function testLengths($length, $string)
     {
-        $t = new String('test');
-        
-        $this->assertEquals(4, $t->getLength());
-        
-        $t->set('1234567890');
-        
-        $this->assertEquals(10, $t->getLength());
-        
-        $t->set('');
-        
-        $this->assertEquals(0, $t->getLength());
+        $t = new String($string);
+
+        $this->assertEquals($langth, $t->getLength());
     }
-    
+
+    private function getLengthData()
+    {
+        return array(
+            array(4, 'test'),
+            array(10, '1234567890'),
+            array(0, ''),
+        );
+    }
+
     public function testUpper()
     {
         $t = new String('Mary and Alice');
         $upper = $t->upper();
-        
+
         $this->assertEquals('MARY AND ALICE', $upper);
     }
-    
+
     public function testLower()
     {
         $t = new String('Mary and Alice');
         $lower = $t->lower();
-        
+
         $this->assertEquals('mary and alice', $lower);
     }
-    
+
     public function testCut()
     {
         $t = new String('Test Test Test Test');
         $cut = $t->cut(6);
-        
+
         $this->assertEquals('Test T', $cut);
-        
+
         // Larger than this can be done too, though it SHOULD have no effect
         $cut = $cut->cut(8);
-        
+
         $this->assertEquals('Test T', $cut);
-        
+
         $cut = $cut->cut(1);
-        
+
         $this->assertEquals('T', $cut);
     }
-    
+
     /**
      * @expectedException InvalidArgumentException
      */
     public function testCutExceptionSizeZero()
     {
         $t = new String('Test Test Test Test');
-        $cut = $t->cut(0);
+        $t->cut(0);
     }
-    
-    
-    
 }
