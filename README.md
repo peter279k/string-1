@@ -3,6 +3,8 @@ String
 
 String handling and manipulation class.
 
+[![Build Status](https://travis-ci.org/ChristianRiesen/string.svg?branch=master)](https://travis-ci.org/ChristianRiesen/string)
+
 Yet another string class
 ------------------------
 
@@ -11,7 +13,7 @@ Most classes I found out there do a counter intuitive thing, basically working a
 Basic use
 ---------
 
-All functions starting with "get" return a value, like `getLength()` will return the string length of that string object. Every other function will return a **new** `String` instance. This can be either stored or simply output directly.
+The meta functions return info about a string. All other functions manipulate the string and return a new instance with the new content.
 
 This makes it a bit tricky if you have very little memory and work with very big strings, so be aware of this.
 
@@ -36,5 +38,5 @@ echo $string->lower();
 echo $string->cut('3')->upper();
 echo $string->upper()->cut('3');
 
-
 ```
+
