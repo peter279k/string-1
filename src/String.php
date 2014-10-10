@@ -120,7 +120,7 @@ class String
             throw new \InvalidArgumentException('Length must be larger than zero');
         }
 
-        if ($this->length() >= $length) {
+        if ($length >= $this->length()) {
             // It's already matching
             return $this;
         }

@@ -93,15 +93,6 @@ class StringTest extends \PHPUnit_Framework_TestCase
         $cut = $t->cut(6);
 
         $this->assertEquals('Test T', (string) $cut);
-
-        // Larger than this can be done too, though it SHOULD have no effect
-        $cut = $cut->cut(8);
-
-        $this->assertEquals('Test T', (string) $cut);
-
-        $cut = $cut->cut(1);
-
-        $this->assertEquals('T', (string) $cut);
     }
 
     /**
