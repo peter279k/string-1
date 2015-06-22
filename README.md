@@ -10,7 +10,9 @@ String handling and manipulation class.
 Yet another string class
 ------------------------
 
-Most classes I found out there do a counter intuitive thing, basically working as a static repo for functions like `String::upper('acme')`, to get the work done. When I have to work with strings though I find myself mostly doing multiple operations at once, so using a fluid interface and actual objects makes more sense to me. Based on this, I created this library.
+Most classes I found out there do a counter intuitive thing, basically working as a static repo for functions like `String::upper('acme')`, to get the work done. When I have to work with strings though I find myself mostly doing multiple operations at once, so using a fluid interface and actual objects makes more sense to me. Based on this, I created this little library.
+
+Most of these functions are laid out for English text. It might work for other languages, but no guarantees.
 
 Basic use
 ---------
