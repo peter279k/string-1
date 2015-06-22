@@ -23,9 +23,9 @@ A simple echo or casting to string will use the `__toString()` magic function. A
 
 ```php
 
-use ChristianRiesen\String\String;
+use ChristianRiesen\StringHelper\StringHelper;
 
-$string = new String('acme is A company that makes Everything!');
+$string = new StringHelper('acme is A company that makes Everything!');
 
 // Output: acme is A company that makes Everything!
 echo $string;
