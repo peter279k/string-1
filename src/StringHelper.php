@@ -1,8 +1,8 @@
 <?php
 
-namespace ChristianRiesen\String;
+namespace ChristianRiesen\StringHelper;
 
-class String
+class StringHelper
 {
     /**
      * Actual string content
@@ -56,9 +56,51 @@ class String
      *
      * @return integer Length of string
      */
-    public function length()
+    public function getLength()
     {
         return strlen($this->get());
+    }
+
+    /**
+     * Get word count
+     *
+     * @return integer Count of words in string
+     */
+    public function getWordCount()
+    {
+        return str_word_count($this->get());
+    }
+
+    /**
+     * Get sentences count
+     *
+     * @return integer Count of sentences in string
+     */
+    public function getSentencesCount()
+    {
+        $string = $this->get();
+
+        // Change all endings into dots
+        $string = str_replace(array('!', '?'), '.', $string);
+
+        // Remove non essentials
+        $string = preg_replace('/[^a-zA-Z0-9\.]/', '', $string);
+
+        // Remove multiple sentence endings
+        $string = preg_replace('/\.{2,}/', '.', $string);
+
+        // Count sentence endings
+        return substr_count($string, '.');
+    }
+
+    /**
+     * Get lines count
+     *
+     * @return integer Count of lines string
+     */
+    public function getLinesCount()
+    {
+        return substr_count($this->get(), "\n");
     }
 
     /**
@@ -86,7 +128,7 @@ class String
     /**
      * Convert everything to upper case
      *
-     * @return String
+     * @return StringHelper
      */
     public function upper()
     {
@@ -96,7 +138,7 @@ class String
     /**
      * Convert everything to lower case
      *
-     * @return String
+     * @return StringHelper
      */
     public function lower()
     {
@@ -108,7 +150,7 @@ class String
      *
      * @param integer $length Maximum length of new string
      *
-     * @return String
+     * @return StringHelper
      */
     public function cut($length)
     {
@@ -120,7 +162,7 @@ class String
             throw new \InvalidArgumentException('Length must be larger than zero');
         }
 
-        if ($length >= $this->length()) {
+        if ($length >= $this->getLength()) {
             // It's already matching
             return $this;
         }

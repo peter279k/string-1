@@ -2,7 +2,7 @@
     "name": "christian-riesen/string",
     "type": "library",
     "description": "String handling and manipulation class",
-    "keywords": ["string"],
+    "keywords": ["string", "string helper"],
     "homepage": "https://github.com/ChristianRiesen/string",
     "license": "MIT",
     "authors": [
@@ -21,7 +21,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ChristianRiesen\\String\\": "src/"
+            "ChristianRiesen\\StringHelper\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ChristianRiesen\\StringHelper\\Tests\\": "tests/"
         }
     },
     "extra": {
