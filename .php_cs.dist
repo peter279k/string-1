@@ -9,7 +9,7 @@ return PhpCsFixer\Config::create()
             "allow_single_line_closure" => true,
             "position_after_functions_and_oop_constructs" => "same",
         ],
-        "array_syntax" => ["syntax" => "short"],
+        "array_syntax" => ["syntax" => "long"],
         "cast_spaces" => true,
         "combine_consecutive_unsets" => true,
         "function_to_constant" => true,

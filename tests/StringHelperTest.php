@@ -31,7 +31,7 @@ class StringHelperTest extends TestCase {
      * @expectedException \InvalidArgumentException
      */
     public function testWrongTypeInConstructorArray() {
-        $t = new StringHelper([1, 2, 3]);
+        $t = new StringHelper(array(1, 2, 3));
     }
 
     /**
@@ -58,11 +58,11 @@ class StringHelperTest extends TestCase {
     }
 
     public function getLengthData() {
-        return [
-            [4, 'test'],
-            [10, '1234567890'],
-            [0, ''],
-        ];
+        return array(
+            array(4, 'test'),
+            array(10, '1234567890'),
+            array(0, ''),
+        );
     }
 
     public function testUpper() {
@@ -88,7 +88,7 @@ class StringHelperTest extends TestCase {
 
     public function testCutWithAlreadyMatchStringLength() {
         $t = new StringHelper('Test Test Test Test');
-        $cut = $t->cut(strlen('Test Test Test Test'));
+        $cut = $t->cut(\strlen('Test Test Test Test'));
 
         $this->assertInstanceOf('ChristianRiesen\StringHelper\StringHelper', $cut);
     }
@@ -121,12 +121,12 @@ class StringHelperTest extends TestCase {
     }
 
     public function getWordCountData() {
-        return [
-            [1, 'one'],
-            [2, 'It\'s two'],
-            [3, 'One two three'],
-            [5, 'One two three. And five.'],
-        ];
+        return array(
+            array(1, 'one'),
+            array(2, 'It\'s two'),
+            array(3, 'One two three'),
+            array(5, 'One two three. And five.'),
+        );
     }
 
     /**
@@ -152,12 +152,12 @@ class StringHelperTest extends TestCase {
     }
 
     public function getSentencesCountData() {
-        return [
-            [1, 'Only a single sentence.'],
-            [1, 'Still, only one; Sentence.'],
-            [2, 'This is two!? Yes it is.'],
-            [2, 'This is two... sentences.'],
-            [1, '"So this is one sentence", he said.'],
-        ];
+        return array(
+            array(1, 'Only a single sentence.'),
+            array(1, 'Still, only one; Sentence.'),
+            array(2, 'This is two!? Yes it is.'),
+            array(2, 'This is two... sentences.'),
+            array(1, '"So this is one sentence", he said.'),
+        );
     }
 }
