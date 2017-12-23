@@ -2,46 +2,42 @@
 
 namespace ChristianRiesen\StringHelper;
 
-class StringHelper
-{
+class StringHelper {
     /**
-     * Actual string content
+     * Actual string content.
      *
      * @var string
      */
     private $string;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param string $string Content
      */
-    public function __construct($string)
-    {
-        if (!is_string($string)) {
-            throw new \InvalidArgumentException('Expecting string, gotten ' . gettype($string));
+    public function __construct($string) {
+        if (!\is_string($string)) {
+            throw new \InvalidArgumentException('Expecting string, gotten ' . \gettype($string));
         }
 
         $this->string = $string;
     }
 
     /**
-     * Return content
+     * Return content.
      *
      * @return string Content
      */
-    public function get()
-    {
+    public function get() {
         return $this->string;
     }
 
     /**
-     * Return content
+     * Return content.
      *
      * @return string Content
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->get();
     }
 
@@ -52,55 +48,51 @@ class StringHelper
      */
 
     /**
-     * Get string length
+     * Get string length.
      *
      * @return integer Length of string
      */
-    public function getLength()
-    {
-        return strlen($this->get());
+    public function getLength() {
+        return \strlen($this->get());
     }
 
     /**
-     * Get word count
+     * Get word count.
      *
      * @return integer Count of words in string
      */
-    public function getWordCount()
-    {
-        return str_word_count($this->get());
+    public function getWordCount() {
+        return \str_word_count($this->get());
     }
 
     /**
-     * Get sentences count
+     * Get sentences count.
      *
      * @return integer Count of sentences in string
      */
-    public function getSentencesCount()
-    {
+    public function getSentencesCount() {
         $string = $this->get();
 
         // Change all endings into dots
-        $string = str_replace(array('!', '?'), '.', $string);
+        $string = \str_replace(['!', '?'], '.', $string);
 
         // Remove non essentials
-        $string = preg_replace('/[^a-zA-Z0-9\.]/', '', $string);
+        $string = \preg_replace('/[^a-zA-Z0-9\.]/', '', $string);
 
         // Remove multiple sentence endings
-        $string = preg_replace('/\.{2,}/', '.', $string);
+        $string = \preg_replace('/\.{2,}/', '.', $string);
 
         // Count sentence endings
-        return substr_count($string, '.');
+        return \substr_count($string, '.');
     }
 
     /**
-     * Get lines count
+     * Get lines count.
      *
      * @return integer Count of lines string
      */
-    public function getLinesCount()
-    {
-        return substr_count($this->get(), "\n");
+    public function getLinesCount() {
+        return \substr_count($this->get(), PHP_EOL);
     }
 
     /**
@@ -110,13 +102,11 @@ class StringHelper
      *
      * @return bool Does this string contain another?
      */
-    public function contains($needle)
-    {
-        if (strpos($this->string, (string) $needle) !== false) {
+    public function contains($needle) {
+        if (\strpos($this->string, (string) $needle) !== false) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     /*
@@ -126,35 +116,32 @@ class StringHelper
      */
 
     /**
-     * Convert everything to upper case
+     * Convert everything to upper case.
      *
      * @return StringHelper
      */
-    public function upper()
-    {
-        return new self(strtoupper($this->get()));
+    public function upper() {
+        return new self(\strtoupper($this->get()));
     }
 
     /**
-     * Convert everything to lower case
+     * Convert everything to lower case.
      *
      * @return StringHelper
      */
-    public function lower()
-    {
-        return new self(strtolower($this->get()));
+    public function lower() {
+        return new self(\strtolower($this->get()));
     }
 
     /**
-     * Cut string down to a specific length
+     * Cut string down to a specific length.
      *
      * @param integer $length Maximum length of new string
      *
      * @return StringHelper
      */
-    public function cut($length)
-    {
-        if (!is_int($length)) {
+    public function cut($length) {
+        if (!\is_int($length)) {
             throw new \InvalidArgumentException('Length to cut must be an integer');
         }
 
@@ -167,6 +154,6 @@ class StringHelper
             return $this;
         }
 
-        return new self(substr($this->get(), 0, $length));
+        return new self(\substr($this->get(), 0, $length));
     }
 }

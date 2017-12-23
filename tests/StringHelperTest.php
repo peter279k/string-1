@@ -3,51 +3,45 @@
 namespace ChristianRiesen\StringHelper\Tests;
 
 use ChristianRiesen\StringHelper\StringHelper;
+use PHPUnit\Framework\TestCase;
 
-class StringHelperTest extends \PHPUnit_Framework_TestCase
-{
+class StringHelperTest extends TestCase {
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
-    public function testWrongTypeInConstructorBoolean()
-    {
+    public function testWrongTypeInConstructorBoolean() {
         $t = new StringHelper(true);
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
-    public function testWrongTypeInConstructorInteger()
-    {
+    public function testWrongTypeInConstructorInteger() {
         $t = new StringHelper((int) 123);
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
-    public function testWrongTypeInConstructorFloat()
-    {
+    public function testWrongTypeInConstructorFloat() {
         $t = new StringHelper((float) 1.23);
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
-    public function testWrongTypeInConstructorArray()
-    {
-        $t = new StringHelper(array(1, 2, 3));
+    public function testWrongTypeInConstructorArray() {
+        $t = new StringHelper([1, 2, 3]);
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
-    public function testWrongTypeInConstructorObject()
-    {
+    public function testWrongTypeInConstructorObject() {
         $t = new StringHelper(new \stdClass());
     }
 
-    public function testSimpleUse()
-    {
+    public function testSimpleUse() {
         $t = new StringHelper('The quick brown fox jumps over the lazy gnome.');
 
         $this->assertEquals('The quick brown fox jumps over the lazy gnome.', $t);
@@ -57,51 +51,62 @@ class StringHelperTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider getLengthData
      */
-    public function testLengths($length, $string)
-    {
+    public function testLengths($length, $string) {
         $t = new StringHelper($string);
 
         $this->assertEquals($length, $t->getLength());
     }
 
-    public function getLengthData()
-    {
-        return array(
-            array(4, 'test'),
-            array(10, '1234567890'),
-            array(0, ''),
-        );
+    public function getLengthData() {
+        return [
+            [4, 'test'],
+            [10, '1234567890'],
+            [0, ''],
+        ];
     }
 
-    public function testUpper()
-    {
+    public function testUpper() {
         $t = new StringHelper('Mary and Alice');
         $upper = $t->upper();
 
         $this->assertEquals('MARY AND ALICE', (string) $upper);
     }
 
-    public function testLower()
-    {
+    public function testLower() {
         $t = new StringHelper('Mary and Alice');
         $lower = $t->lower();
 
         $this->assertEquals('mary and alice', (string) $lower);
     }
 
-    public function testCut()
-    {
+    public function testCut() {
         $t = new StringHelper('Test Test Test Test');
         $cut = $t->cut(6);
 
         $this->assertEquals('Test T', (string) $cut);
     }
 
+    public function testCutWithAlreadyMatchStringLength() {
+        $t = new StringHelper('Test Test Test Test');
+        $cut = $t->cut(strlen('Test Test Test Test'));
+
+        $this->assertInstanceOf('ChristianRiesen\StringHelper\StringHelper', $cut);
+    }
+
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
-    public function testCutExceptionSizeZero()
-    {
+    public function testCutWithInvalidLength() {
+        $t = new StringHelper('Test Test Test Test');
+        $cut = $t->cut(0.1);
+
+        $this->assertEquals('Test T', (string) $cut);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testCutExceptionSizeZero() {
         $t = new StringHelper('Test Test Test Test');
         $t->cut(0);
     }
@@ -109,41 +114,50 @@ class StringHelperTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider getWordCountData
      */
-    public function testWordCount($length, $string)
-    {
+    public function testWordCount($length, $string) {
         $t = new StringHelper($string);
 
         $this->assertEquals($length, $t->getWordCount());
     }
 
-    public function getWordCountData()
-    {
-        return array(
-            array(1, 'one'),
-            array(2, 'It\'s two'),
-            array(3, 'One two three'),
-            array(5, 'One two three. And five.'),
-        );
+    public function getWordCountData() {
+        return [
+            [1, 'one'],
+            [2, 'It\'s two'],
+            [3, 'One two three'],
+            [5, 'One two three. And five.'],
+        ];
     }
 
     /**
      * @dataProvider getSentencesCountData
      */
-    public function testSentencesCount($length, $string)
-    {
+    public function testSentencesCount($length, $string) {
         $t = new StringHelper($string);
 
         $this->assertEquals($length, $t->getSentencesCount());
     }
 
-    public function getSentencesCountData()
-    {
-        return array(
-            array(1, 'Only a single sentence.'),
-            array(1, 'Still, only one; Sentence.'),
-            array(2, 'This is two!? Yes it is.'),
-            array(2, 'This is two... sentences.'),
-            array(1, '"So this is one sentence", he said.'),
-        );
+    public function testGetLinesCount() {
+        $t = new StringHelper('string1'.PHP_EOL.'string2');
+
+        $this->assertEquals(1, $t->getLinesCount());
+    }
+
+    public function testContains() {
+        $t = new StringHelper('string_contains');
+
+        $this->assertTrue($t->contains('contains'));
+        $this->assertFalse($t->contains('no_contains'));
+    }
+
+    public function getSentencesCountData() {
+        return [
+            [1, 'Only a single sentence.'],
+            [1, 'Still, only one; Sentence.'],
+            [2, 'This is two!? Yes it is.'],
+            [2, 'This is two... sentences.'],
+            [1, '"So this is one sentence", he said.'],
+        ];
     }
 }
